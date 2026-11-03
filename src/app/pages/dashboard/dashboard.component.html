@@ -1,0 +1,47 @@
+<div class="container">
+  <h2>Visão Geral & Dashboard</h2>
+
+  <div class="kpi-grid">
+    <div class="kpi-card blue">
+      <span class="title">Total Itens em Estoque</span>
+      <span class="value">{{ totalItens }}</span>
+    </div>
+
+    <div class="kpi-card red">
+      <span class="title">Alertas de Estoque Baixo</span>
+      <span class="value">{{ produtosCriticos.length }} itens</span>
+    </div>
+
+    <div class="kpi-card yellow">
+      <span class="title">Validade Próxima (7 dias)</span>
+      <span class="value">2 itens</span>
+    </div>
+
+    <div class="kpi-card green">
+      <span class="title">Valor Total em Estoque</span>
+      <span class="value">{{ valorTotalEstoque | currency:'BRL' }}</span>
+    </div>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="chart-box">
+      <h3>Movimentação de Vendas por Categoria</h3>
+      <div class="simulated-chart">
+        <div class="bar-item"><div class="bar" style="height: 60%;">R$18k</div><span>Laticínios</span></div>
+        <div class="bar-item"><div class="bar" style="height: 85%;">R$24k</div><span>Bebidas</span></div>
+        <div class="bar-item"><div class="bar" style="height: 45%;">R$12k</div><span>Padaria</span></div>
+        <div class="bar-item"><div class="bar" style="height: 55%;">R$15k</div><span>Hortifrúti</span></div>
+        <div class="bar-item"><div class="bar" style="height: 70%;">R$20k</div><span>Limpeza</span></div>
+      </div>
+    </div>
+
+    <div class="alert-box">
+      <h3>⚠️ Alertas Críticos de Estoque</h3>
+      <ul>
+        <li *ngFor="let p of produtosCriticos" class="alert-item">
+          <strong>{{ p.nome }}</strong>: {{ p.estoqueAtual }} un (Mín: {{ p.estoqueMinimo }})
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
