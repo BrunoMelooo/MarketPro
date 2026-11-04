@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="header-actions">
+    <h2>Catálogo de Produtos em Estoque</h2>
+    <a routerLink="/produtos/novo" class="btn btn-primary">+ NOVO PRODUTO</a>
+  </div>
+
+  <div class="filters">
+    <input type="text" [(ngModel)]="termoBusca" placeholder="🔍 Pesquisar por nome ou código..." class="filter-input">
+    <select [(ngModel)]="categoriaFiltro" class="filter-select">
+      <option value="Todas">Categoria: Todas</option>
+      <option value="Laticínios">Laticínios</option>
+      <option value="Mercearia">Mercearia</option>
+      <option value="Limpeza">Limpeza</option>
+      <option value="Biscoitos">Biscoitos</option>
+    </select>
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>CÓDIGO</th>
+        <th>NOME DO PRODUTO</th>
+        <th>CATEGORIA</th>
+        <th>PREÇO</th>
+        <th>ESTOQUE</th>
+        <th>AÇÕES</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of produtosFiltrados" [ngClass]="{'row-critical': p.estoqueAtual <= p.estoqueMinimo}">
+        <td>{{ p.codigo }}</td>
+        <td><strong>{{ p.nome }}</strong></td>
+        <td>{{ p.categoria }}</td>
+        <td>{{ p.precoVenda | currency:'BRL' }}</td>
+        <td>
+          <span [class.badge-danger]="p.estoqueAtual <= p.estoqueMinimo">
+            {{ p.estoqueAtual }} un
+          </span>
+        </td>
+        <td>
+          <a [routerLink]="['/produtos/detalhes', p.id]" class="icon-btn" title="Visualizar">👁️</a>
+          <a [routerLink]="['/produtos/editar', p.id]" class="icon-btn" title="Editar">✏️</a>
+          <button (click)="excluir(p.id)" class="icon-btn delete-btn" title="Excluir">🗑️</button>
+        </td>
+      </tr>
+      <tr *ngIf="produtosFiltrados.length === 0">
+        <td colspan="6" class="text-center">Nenhum produto encontrado.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

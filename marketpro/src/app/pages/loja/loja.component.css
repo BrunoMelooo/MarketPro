@@ -1,0 +1,41 @@
+.loja-header { display: flex; justify-content: space-between; align-items: center; background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+.loja-header h2 { color: #1b365d; }
+.welcome { font-size: 13px; color: #7f8c8d; margin-top: 4px; }
+.carrinho-badge { background: #ebf5fb; color: #2980b9; padding: 10px 16px; border-radius: 20px; font-size: 13px; border: 1px solid #aed6f1; }
+
+.loja-layout { display: flex; gap: 20px; }
+.vitrine { flex: 2; }
+.vitrine h3 { color: #1b365d; margin-bottom: 15px; }
+
+.grid-produtos { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+.card-produto { background: white; padding: 16px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); border: 1px solid #ecf0f1; position: relative; }
+.categoria-tag { font-size: 10px; font-weight: bold; color: #3498db; background: #ebf5fb; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-bottom: 8px; }
+.card-produto h4 { font-size: 15px; color: #2c3e50; }
+.codigo { font-size: 11px; color: #95a5a6; margin-bottom: 10px; }
+.preco { font-size: 18px; font-weight: bold; color: #27ae60; margin-bottom: 10px; }
+.estoque-status { font-size: 12px; color: #555; margin-bottom: 12px; }
+.estoque-status.esgotado { color: #c0392b; font-weight: bold; }
+.btn-add { width: 100%; background: #1b365d; color: white; border: none; padding: 8px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+.btn-add:disabled { background: #bdc3c7; cursor: not-allowed; }
+
+.checkout-panel { flex: 1; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); height: fit-content; }
+.checkout-panel h3 { color: #1b365d; margin-bottom: 15px; border-bottom: 1px solid #ecf0f1; padding-bottom: 10px; }
+.carrinho-vazio { font-size: 13px; color: #7f8c8d; font-style: italic; text-align: center; padding: 20px 0; }
+.lista-carrinho { list-style: none; margin-bottom: 15px; }
+.item-carrinho { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f2f4f4; font-size: 13px; }
+.sub-item { font-size: 11px; color: #7f8c8d; }
+.btn-remove { background: none; border: none; cursor: pointer; font-size: 12px; }
+
+.pagamento-box { background: #f8f9f9; padding: 15px; border-radius: 6px; margin-top: 15px; }
+.total-row { display: flex; justify-content: space-between; font-weight: bold; font-size: 15px; color: #2c3e50; }
+.total-valor { color: #27ae60; font-size: 18px; }
+.form-control { width: 100%; padding: 8px; border: 1px solid #bdc3c7; border-radius: 4px; margin-top: 4px; }
+.btn-pagar { width: 100%; background: #27ae60; color: white; border: none; padding: 12px; font-size: 14px; font-weight: bold; border-radius: 4px; cursor: pointer; margin-top: 15px; }
+.btn-pagar:hover { background: #219150; }
+
+.sucesso-card { background: white; padding: 40px; border-radius: 8px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.08); max-width: 500px; margin: 30px auto; }
+.check-icon { font-size: 50px; margin-bottom: 15px; }
+.sucesso-card h3 { color: #27ae60; font-size: 22px; margin-bottom: 10px; }
+.sucesso-card p { color: #555; margin-bottom: 10px; font-size: 14px; }
+.estoque-notice { background: #eafaf1; color: #1e8449; padding: 10px; border-radius: 6px; font-size: 13px; margin: 15px 0 20px 0; }
+.error-box { background: #fdedec; color: #c0392b; padding: 8px; border-radius: 4px; font-size: 12px; margin-bottom: 10px; }

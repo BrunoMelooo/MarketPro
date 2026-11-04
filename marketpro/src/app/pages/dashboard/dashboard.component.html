@@ -1,0 +1,53 @@
+<div class="container">
+  <h2>Visão Geral & Dashboard</h2>
+
+  <div class="kpi-grid">
+    <div class="kpi-card blue">
+      <span class="title">Total Itens em Estoque</span>
+      <span class="value">{{ totalItens }}</span>
+    </div>
+
+    <div class="kpi-card red">
+      <span class="title">Alertas de Estoque Baixo</span>
+      <span class="value">{{ produtosCriticos.length }} itens</span>
+    </div>
+
+    <div class="kpi-card yellow">
+      <span class="title">Validade Próxima</span>
+      <span class="value">{{ produtosVencimento.length }} itens</span>
+    </div>
+
+    <div class="kpi-card green">
+      <span class="title">Valor Total em Estoque</span>
+      <span class="value">{{ valorTotalEstoque | currency:'BRL' }}</span>
+    </div>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="chart-box">
+      <h3>Estoque por Categoria (Gráfico Dinâmico)</h3>
+      <div class="chart-container" style="position: relative; height:240px; width:100%">
+        <canvas id="dashboardChart"></canvas>
+      </div>
+
+      <!-- Gráfico Visual de Barras (Fallback CSS) -->
+      <div class="simulated-chart" style="margin-top: 20px;">
+        <div *ngFor="let cat of categoriasData" class="bar-item">
+          <div class="bar" [style.height.%]="(cat.valor / maxEstoqueCategoria) * 100">
+            {{ cat.valor }}
+          </div>
+          <span>{{ cat.nome }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert-box">
+      <h3>⚠️ Alertas Críticos de Estoque</h3>
+      <ul>
+        <li *ngFor="let p of produtosCriticos" class="alert-item">
+          <strong>{{ p.nome }}</strong>: {{ p.estoqueAtual }} un (Mín: {{ p.estoqueMinimo }})
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

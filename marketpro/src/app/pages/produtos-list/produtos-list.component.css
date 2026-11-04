@@ -1,0 +1,15 @@
+.header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.filters { display: flex; gap: 15px; margin-bottom: 20px; }
+.filter-input { flex: 2; padding: 10px; border: 1px solid #bdc3c7; border-radius: 4px; }
+.filter-select { flex: 1; padding: 10px; border: 1px solid #bdc3c7; border-radius: 4px; }
+.data-table { width: 100%; border-collapse: collapse; background: white; border-radius: 6px; overflow: hidden; }
+.data-table th { background: #34495e; color: white; padding: 12px; text-align: left; font-size: 12px; }
+.data-table td { padding: 12px; border-bottom: 1px solid #ecf0f1; }
+.row-critical { background-color: #fdedec; }
+.icon-btn { text-decoration: none; margin-right: 8px; cursor: pointer; background: none; border: none; font-size: 14px; }
+.text-center { text-align: center; color: #7f8c8d; padding: 20px; }

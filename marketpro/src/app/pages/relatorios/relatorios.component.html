@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="header-actions">
+    <h2>Relatórios Analíticos e Estoque</h2>
+    <button (click)="exportar()" class="btn btn-primary">📥 EXPORTAR RELATÓRIO</button>
+  </div>
+
+  <div class="report-card">
+    <h3>Relatório de Produtos Próximos do Vencimento (Próximos 30 Dias)</h3>
+
+    <table class="data-table" style="margin-top: 15px;">
+      <thead>
+        <tr>
+          <th>PRODUTO</th>
+          <th>LOTE</th>
+          <th>QUANTIDADE</th>
+          <th>DATA VALIDADE</th>
+          <th>STATUS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of produtosVencimento">
+          <td><strong>{{ p.nome }}</strong></td>
+          <td>{{ p.lote }}</td>
+          <td>{{ p.estoqueAtual }} un</td>
+          <td>{{ p.dataValidade }}</td>
+          <td><span class="badge-danger">CRÍTICO</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

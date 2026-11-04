@@ -1,0 +1,61 @@
+<div class="container" *ngIf="produto">
+  <div class="header-actions">
+    <h2>Detalhes do Produto: {{ produto.codigo }}</h2>
+    <button (click)="voltar()" class="btn btn-secondary">← Voltar</button>
+  </div>
+
+  <div class="detail-card">
+    <div class="detail-grid">
+      <div class="detail-item">
+        <label>Nome do Produto:</label>
+        <p class="value">{{ produto.nome }}</p>
+      </div>
+
+      <div class="detail-item">
+        <label>Código de Barras:</label>
+        <p class="value">{{ produto.codigo }}</p>
+      </div>
+
+      <div class="detail-item">
+        <label>Categoria:</label>
+        <p class="value">{{ produto.categoria }}</p>
+      </div>
+
+      <div class="detail-item">
+        <label>Fornecedor:</label>
+        <p class="value">{{ produto.fornecedor }}</p>
+      </div>
+
+      <div class="detail-item">
+        <label>Preço de Custo:</label>
+        <p class="value">{{ produto.precoCusto | currency:'BRL' }}</p>
+      </div>
+
+      <div class="detail-item">
+        <label>Preço de Venda:</label>
+        <p class="value">{{ produto.precoVenda | currency:'BRL' }} (Margem: {{ margemLucro }})</p>
+      </div>
+
+      <div class="detail-item">
+        <label>Estoque Atual:</label>
+        <p class="value">
+          <span [class.badge-danger]="produto.estoqueAtual <= produto.estoqueMinimo">
+            {{ produto.estoqueAtual }} unidades
+            <ng-container *ngIf="produto.estoqueAtual <= produto.estoqueMinimo">(NÍVEL CRÍTICO)</ng-container>
+          </span>
+        </p>
+      </div>
+
+      <div class="detail-item">
+        <label>Lote / Validade:</label>
+        <p class="value">Lote {{ produto.lote }} - Vencimento: {{ produto.dataValidade }}</p>
+      </div>
+    </div>
+
+    <div class="history-box">
+      <h4>Últimas Movimentações (Simulação):</h4>
+      <p>• Venda de 12 unidades (Caixa 02)</p>
+      <p>• Entrada de Lote com 50 unidades (Nota Fiscal #4402)</p>
+    </div>
+  </div>
+</div>

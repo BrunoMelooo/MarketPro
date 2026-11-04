@@ -1,0 +1,85 @@
+<div class="container">
+  <div class="loja-header">
+    <div>
+      <h2>🛍️ Mercado Online MarketPro</h2>
+      <p class="welcome">Bem-vindo(a), <strong>{{ clienteNome }}</strong>! Faça suas compras online com desconto de fábrica.</p>
+    </div>
+    <div class="carrinho-badge">
+      🛒 Carrinho: <strong>{{ carrinho.length }} itens</strong> | {{ totalCarrinho | currency:'BRL' }}
+    </div>
+  </div>
+
+  <!-- TELA DE SUCESSO DO PAGAMENTO FICTÍCIO -->
+  <div *ngIf="compraFinalizada" class="sucesso-card">
+    <div class="check-icon">✅</div>
+    <h3>Pagamento Fictício Aprovado!</h3>
+    <p>Sua compra foi processada com sucesso no método <strong>{{ metodoPagamento }}</strong>.</p>
+    <p class="estoque-notice">⚡ <em>Os produtos comprados já foram automaticamente abatidos do estoque do supermercado!</em></p>
+    <button (click)="novaCompra()" class="btn btn-primary">Fazer Outra Compra</button>
+  </div>
+
+  <!-- VITRINE DE PRODUTOS E CHECKOUT -->
+  <div *ngIf="!compraFinalizada" class="loja-layout">
+    <!-- VITRINE -->
+    <div class="vitrine">
+      <h3>Produtos Disponíveis em Estoque</h3>
+      <div class="grid-produtos">
+        <div *ngFor="let p of produtos" class="card-produto">
+          <div class="categoria-tag">{{ p.categoria }}</div>
+          <h4>{{ p.nome }}</h4>
+          <p class="codigo">Cód: {{ p.codigo }}</p>
+          <div class="preco">{{ p.precoVenda | currency:'BRL' }}</div>
+          <div class="estoque-status" [class.esgotado]="p.estoqueAtual === 0">
+            Estoque Disponível: <strong>{{ p.estoqueAtual }} un</strong>
+          </div>
+          <button (click)="adicionarAoCarrinho(p)" [disabled]="p.estoqueAtual === 0" class="btn btn-add">
+            {{ p.estoqueAtual > 0 ? '+ Adicionar' : 'Esgotado' }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAINEL DO CARRINHO E PAGAMENTO FICTÍCIO -->
+    <div class="checkout-panel">
+      <h3>Resumo do Carrinho</h3>
+
+      <div *ngIf="mensagemErro" class="error-box">{{ mensagemErro }}</div>
+
+      <div *ngIf="carrinho.length === 0" class="carrinho-vazio">
+        Seu carrinho está vazio. Escolha os produtos ao lado!
+      </div>
+
+      <ul class="lista-carrinho" *ngIf="carrinho.length > 0">
+        <li *ngFor="let item of carrinho" class="item-carrinho">
+          <div>
+            <strong>{{ item.produto.nome }}</strong>
+            <div class="sub-item">{{ item.quantidade }}x {{ item.produto.precoVenda | currency:'BRL' }}</div>
+          </div>
+          <div>
+            <button (click)="removerDoCarrinho(item.produto.id)" class="btn-remove">❌</button>
+          </div>
+        </li>
+      </ul>
+
+      <div *ngIf="carrinho.length > 0" class="pagamento-box">
+        <div class="total-row">
+          <span>Total a Pagar:</span>
+          <span class="total-valor">{{ totalCarrinho | currency:'BRL' }}</span>
+        </div>
+
+        <div class="form-group" style="margin-top: 15px;">
+          <label>Forma de Pagamento (Simulação):</label>
+          <select [(ngModel)]="metodoPagamento" class="form-control">
+            <option value="PIX (Aprovação Instantânea)">⚡ PIX (Instantâneo)</option>
+            <option value="Cartão de Crédito Fictício">💳 Cartão de Crédito</option>
+            <option value="Boleto Bancário Fictício">📄 Boleto Bancário</option>
+          </select>
+        </div>
+
+        <button (click)="realizarPagamentoFicticio()" class="btn btn-pagar">
+          CONFIRMAR & PAGAR {{ totalCarrinho | currency:'BRL' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

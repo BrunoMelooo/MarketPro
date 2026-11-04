@@ -1,0 +1,151 @@
+{
+  "produtos": [
+    {
+      "id": 1,
+      "codigo": "PRD-001",
+      "nome": "Leite Integral UHT 1L",
+      "categoria": "Laticínios",
+      "precoCusto": 3.20,
+      "precoVenda": 4.89,
+      "estoqueAtual": 25,
+      "estoqueMinimo": 20,
+      "fornecedor": "Laticínios Alvorada LTDA",
+      "lote": "B442",
+      "dataValidade": "2026-12-15"
+    },
+    {
+      "id": 2,
+      "codigo": "PRD-002",
+      "nome": "Arroz Tipo 1 5kg",
+      "categoria": "Mercearia",
+      "precoCusto": 18.50,
+      "precoVenda": 24.90,
+      "estoqueAtual": 45,
+      "estoqueMinimo": 15,
+      "fornecedor": "Cerealista Sul",
+      "lote": "A102",
+      "dataValidade": "2027-05-10"
+    },
+    {
+      "id": 3,
+      "codigo": "PRD-003",
+      "nome": "Café Torrado e Moído 500g",
+      "categoria": "Mercearia",
+      "precoCusto": 11.00,
+      "precoVenda": 16.50,
+      "estoqueAtual": 14,
+      "estoqueMinimo": 15,
+      "fornecedor": "Café Brasil S.A.",
+      "lote": "C881",
+      "dataValidade": "2026-11-30"
+    },
+    {
+      "id": 4,
+      "codigo": "PRD-004",
+      "nome": "Detergente Neutro 500ml",
+      "categoria": "Limpeza",
+      "precoCusto": 1.40,
+      "precoVenda": 2.29,
+      "estoqueAtual": 88,
+      "estoqueMinimo": 30,
+      "fornecedor": "Limpex Indústria",
+      "lote": "L990",
+      "dataValidade": "2028-01-01"
+    },
+    {
+      "id": 5,
+      "codigo": "PRD-005",
+      "nome": "Biscoito Recheado Chocolate 140g",
+      "categoria": "Biscoitos",
+      "precoCusto": 2.10,
+      "precoVenda": 3.49,
+      "estoqueAtual": 32,
+      "estoqueMinimo": 20,
+      "fornecedor": "Doces & Cia",
+      "lote": "B112",
+      "dataValidade": "2027-02-14"
+    },
+    {
+      "id": 6,
+      "codigo": "PRD-006",
+      "nome": "Sabão em Pó Ação Profunda 1kg",
+      "categoria": "Limpeza",
+      "precoCusto": 8.90,
+      "precoVenda": 12.90,
+      "estoqueAtual": 19,
+      "estoqueMinimo": 10,
+      "fornecedor": "Limpex Indústria",
+      "lote": "S404",
+      "dataValidade": "2028-06-20"
+    },
+    {
+      "id": 7,
+      "codigo": "PRD-007",
+      "nome": "Azeite de Oliva Extra Virgem 500ml",
+      "categoria": "Mercearia",
+      "precoCusto": 22.00,
+      "precoVenda": 34.90,
+      "estoqueAtual": 8,
+      "estoqueMinimo": 12,
+      "fornecedor": "Importadora Vale do Sol",
+      "lote": "AZ99",
+      "dataValidade": "2027-08-10"
+    },
+    {
+      "id": 8,
+      "codigo": "PRD-008",
+      "nome": "Queijo Mussarela Fatiado 200g",
+      "categoria": "Laticínios",
+      "precoCusto": 6.50,
+      "precoVenda": 9.90,
+      "estoqueAtual": 5,
+      "estoqueMinimo": 15,
+      "fornecedor": "Laticínios Alvorada LTDA",
+      "lote": "QM12",
+      "dataValidade": "2026-11-20"
+    },
+    {
+      "id": 9,
+      "codigo": "PRD-009",
+      "nome": "Refrigerante Cola 2L",
+      "categoria": "Bebidas",
+      "precoCusto": 4.50,
+      "precoVenda": 7.99,
+      "estoqueAtual": 60,
+      "estoqueMinimo": 25,
+      "fornecedor": "Bebidas do Vale",
+      "lote": "REF01",
+      "dataValidade": "2027-01-15"
+    },
+    {
+      "id": 10,
+      "codigo": "PRD-010",
+      "nome": "Papel Higiênico Folha Dupla (8 rolos)",
+      "categoria": "Higiene",
+      "precoCusto": 9.80,
+      "precoVenda": 14.90,
+      "estoqueAtual": 40,
+      "estoqueMinimo": 15,
+      "fornecedor": "Limpex Indústria",
+      "lote": "PH88",
+      "dataValidade": "2029-12-31"
+    }
+  ],
+  "categorias": [
+    { "id": 1, "nome": "Laticínios", "descricao": "Leites, queijos, iogurtes e derivados" },
+    { "id": 2, "nome": "Mercearia", "descricao": "Grãos, óleos, enlatados e mercearia seca" },
+    { "id": 3, "nome": "Limpeza", "descricao": "Produtos para higienização da casa e roupas" },
+    { "id": 4, "nome": "Biscoitos", "descricao": "Biscoitos doces, salgados e torradas" },
+    { "id": 5, "nome": "Bebidas", "descricao": "Sucos, refrigerantes e águas" },
+    { "id": 6, "nome": "Higiene", "descricao": "Cuidados pessoais e higiene diária" }
+  ],
+  "fornecedores": [
+    { "id": 1, "nome": "Laticínios Alvorada LTDA", "cnpj": "12.345.678/0001-90", "telefone": "(31) 3333-1111" },
+    { "id": 2, "nome": "Cerealista Sul", "cnpj": "98.765.432/0001-10", "telefone": "(31) 3333-2222" },
+    { "id": 3, "nome": "Café Brasil S.A.", "cnpj": "45.678.912/0001-33", "telefone": "(31) 3333-3333" },
+    { "id": 4, "nome": "Limpex Indústria", "cnpj": "78.912.345/0001-55", "telefone": "(31) 3333-4444" },
+    { "id": 5, "nome": "Doces & Cia", "cnpj": "11.222.333/0001-44", "telefone": "(31) 3333-5555" },
+    { "id": 6, "nome": "Importadora Vale do Sol", "cnpj": "22.333.444/0001-66", "telefone": "(31) 3333-6666" },
+    { "id": 7, "nome": "Bebidas do Vale", "cnpj": "33.444.555/0001-77", "telefone": "(31) 3333-7777" }
+  ]
+}
