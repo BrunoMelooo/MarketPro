@@ -1,0 +1,81 @@
+<div class="container-comprador">
+  <header class="cabecalho">
+    <div class="marca">
+      <h2>MarketPro <span>Loja Virtual</span></h2>
+      <p class="cliente-info">Cliente Conectado: <strong>{{ servicoAutenticacao.valorUsuarioAtual?.nome || 'Comprador' }}</strong></p>
+    </div>
+    <button (click)="sair()" class="btn-logout">Sair do Sistema</button>
+  </header>
+
+  <div *ngIf="mensagemNotificacao" class="toast-notification">
+    ✨ {{ mensagemNotificacao }}
+  </div>
+
+  <div *ngIf="pagamentoSucesso" class="toast-notification success">
+    🎉 Pagamento realizado com sucesso! Estoque atualizado e pedido gravado no banco de dados.
+  </div>
+
+  <div class="conteudo-principal">
+    <section class="secao-produtos">
+      <h3>Catálogo de Produtos em Estoque</h3>
+      <div class="grid-produtos">
+        <div *ngFor="let produto of produtos" class="card-produto">
+          <div class="imagem-container">
+            <img [src]="produto.imagemUrl || 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&auto=format&fit=crop'" [alt]="produto.nome">
+            <span class="badge-cat">{{ produto.categoria || 'Geral' }}</span>
+          </div>
+          <div class="detalhes-produto">
+            <h4>{{ produto.nome }}</h4>
+            <p class="estoque-status" [class.sem-estoque]="produto.estoque === 0">
+              Estoque: <strong>{{ produto.estoque }} un</strong>
+            </p>
+            <div class="footer-card">
+              <span class="preco">R$ {{ produto.preco.toFixed(2) }}</span>
+              <button (click)="adicionarAoCarrinho(produto)" [disabled]="produto.estoque === 0" class="btn-adicionar">
+                {{ produto.estoque > 0 ? '+ Adicionar' : 'Esgotado' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="secao-carrinho">
+      <h3>Seu Carrinho de Compras</h3>
+      <div *ngIf="carrinho.length === 0" class="carrinho-vazio">
+        <p>🛒 Seu carrinho está vazio.</p>
+      </div>
+
+      <div *ngIf="carrinho.length > 0">
+        <ul class="itens-carrinho">
+          <li *ngFor="let item of carrinho; let i = index">
+            <div class="item-info">
+              <strong>{{ item.produto.nome }}</strong>
+              <small>{{ item.quantidade }}x R$ {{ item.produto.preco.toFixed(2) }}</small>
+            </div>
+            <div class="item-acoes">
+              <span>R$ {{ (item.produto.preco * item.quantidade).toFixed(2) }}</span>
+              <button (click)="removerDoCarrinho(i)" class="btn-remover">✕</button>
+            </div>
+          </li>
+        </ul>
+
+        <div class="opcao-pagamento">
+          <label>Forma de Pagamento:</label>
+          <select [(ngModel)]="metodoPagamento" class="select-pagamento">
+            <option value="Cartão de Crédito">Cartão de Crédito</option>
+            <option value="Pix">Pix (Instantâneo)</option>
+            <option value="Boleto Bancário">Boleto Bancário</option>
+          </select>
+        </div>
+
+        <div class="total-carrinho">
+          <span>Total Geral:</span>
+          <strong>R$ {{ obterValorTotal().toFixed(2) }}</strong>
+        </div>
+
+        <button (click)="processarPagamento()" class="btn-checkout">Finalizar & Simular Pagamento</button>
+      </div>
+    </aside>
+  </div>
+</div>

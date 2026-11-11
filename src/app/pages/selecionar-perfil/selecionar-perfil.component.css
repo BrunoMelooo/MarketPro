@@ -1,0 +1,24 @@
+.container-selecionar-perfil {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: white;
+}
+.hero { text-align: center; margin-bottom: 3rem; }
+.hero h1 { font-size: 3.2rem; font-weight: 800; color: #38bdf8; margin-bottom: 0.5rem; }
+.subtitulo { color: #94a3b8; font-size: 1.15rem; }
+.cards-wrapper { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; max-width: 900px; width: 100%; }
+.card-perfil { background: #1e293b; border: 1px solid #334155; padding: 2.5rem 2rem; border-radius: 16px; width: 380px; text-align: center; cursor: pointer; transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; }
+.card-perfil:hover { transform: translateY(-8px); border-color: #38bdf8; box-shadow: 0 12px 30px rgba(56, 189, 248, 0.15); }
+.icon { font-size: 3rem; margin-bottom: 1rem; }
+.card-perfil h3 { font-size: 1.5rem; margin-bottom: 0.8rem; color: #f8fafc; }
+.card-perfil p { color: #94a3b8; font-size: 0.95rem; line-height: 1.5; margin-bottom: 2rem; flex-grow: 1; }
+.btn { width: 100%; padding: 0.85rem; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; color: white; }
+.btn-admin { background-color: #0284c7; }
+.btn-buyer { background-color: #16a34a; }
+.rodape-link { margin-top: 3.5rem; }
+.btn-link { background: none; border: none; color: #38bdf8; text-decoration: underline; font-size: 0.95rem; }

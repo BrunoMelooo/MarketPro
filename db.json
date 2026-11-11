@@ -1,0 +1,96 @@
+{
+  "usuarios": [
+    {
+      "id": 1,
+      "nome": "Bruno Melo",
+      "email": "bruno@marketpro.com",
+      "senha": "123",
+      "perfil": "admin"
+    },
+    {
+      "id": 2,
+      "nome": "Comprador Exemplo",
+      "email": "cliente@marketpro.com",
+      "senha": "123",
+      "perfil": "buyer"
+    }
+  ],
+  "produtos": [
+    {
+      "id": 1,
+      "nome": "Arroz Integral 5kg",
+      "preco": 24.9,
+      "estoque": 45,
+      "categoria": "Alimentos",
+      "imagemUrl": "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&auto=format&fit=crop"
+    },
+    {
+      "id": 2,
+      "nome": "Feijão Preto 1kg",
+      "preco": 8.50,
+      "estoque": 72,
+      "categoria": "Alimentos",
+      "imagemUrl": "https://images.tcdn.com.br/img/img_prod/704739/feijao_carioca_camil_1kg_1167_1_20200812163953.png"
+    },
+    {
+      "id": 3,
+      "nome": "Azeite Extra Virgem 500ml",
+      "preco": 32,
+      "estoque": 8,
+      "categoria": "Mercearia",
+      "imagemUrl": "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400&auto=format&fit=crop"
+    },
+    {
+      "id": 4,
+      "nome": "Detergente Neutro 500ml",
+      "preco": 2.99,
+      "estoque": 110,
+      "categoria": "Limpeza",
+      "imagemUrl": "https://images.unsplash.com/photo-1585670149967-b4f4da88cc9f?w=400&auto=format&fit=crop"
+    },
+    {
+      "id": 5,
+      "nome": "Café Torrado 500g",
+      "preco": 16.9,
+      "estoque": 60,
+      "categoria": "Mercearia",
+      "imagemUrl": "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=400&auto=format&fit=crop"
+    },
+    {
+      "id": 6,
+      "nome": "Leite Integral 1L",
+      "preco": 4.8,
+      "estoque": 5,
+      "categoria": "Laticínios",
+      "imagemUrl": "https://images.unsplash.com/photo-1563636619-e9143da7973b?w=400&auto=format&fit=crop"
+    },
+    {
+      "nome": "pao",
+      "preco": 2,
+      "estoque": 3,
+      "categoria": "Alimentos",
+      "imagemUrl": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&auto=format&fit=crop",
+      "id": 7
+    }
+  ],
+  "pedidos": [
+    {
+      "id": 101,
+      "usuarioId": 2,
+      "nomeUsuario": "Comprador Exemplo",
+      "valorTotal": 65.4,
+      "data": "2026-11-08T10:30:00.000Z",
+      "status": "Concluído",
+      "metodoPagamento": "Cartão de Crédito"
+    },
+    {
+      "id": 102,
+      "usuarioId": 2,
+      "nomeUsuario": "Comprador Exemplo",
+      "valorTotal": 33.4,
+      "data": "2026-11-09T14:15:00.000Z",
+      "status": "Concluído",
+      "metodoPagamento": "Pix"
+    }
+  ]
+}

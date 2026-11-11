@@ -1,0 +1,124 @@
+<div class="container-admin">
+  <header class="cabecalho-admin">
+    <div class="brand">
+      <h2>MarketPro <span>Painel Administrativo & Dashboard</span></h2>
+      <p class="user">Administrador Conectado: <strong>{{ servicoAutenticacao.valorUsuarioAtual?.nome || 'Bruno Melo' }}</strong></p>
+    </div>
+    <div class="acoes-cabecalho">
+      <button (click)="sair()" class="btn-logout">Sair / Logout</button>
+    </div>
+  </header>
+
+  <section class="dashboard-grid">
+    <div class="card-metrica card-faturamento">
+      <div class="metrica-header">
+        <span>Faturamento Total</span>
+        <span class="icon">💰</span>
+      </div>
+      <h3>R$ {{ faturamentoTotal.toFixed(2) }}</h3>
+      <p>Receita liquida de pedidos</p>
+    </div>
+
+    <div class="card-metrica card-pedidos">
+      <div class="metrica-header">
+        <span>Total de Vendas</span>
+        <span class="icon">🛍️</span>
+      </div>
+      <h3>{{ totalVendasCount }} pedidos</h3>
+      <p>Concluídos via checkout</p>
+    </div>
+
+    <div class="card-metrica card-estoque">
+      <div class="metrica-header">
+        <span>Itens em Estoque</span>
+        <span class="icon">📦</span>
+      </div>
+      <h3>{{ totalItensEstoque }} un</h3>
+      <p>Inventário global disponível</p>
+    </div>
+
+    <div class="card-metrica card-alerta">
+      <div class="metrica-header">
+        <span>Baixo Estoque</span>
+        <span class="icon">⚠️</span>
+      </div>
+      <h3>{{ produtosBaixoEstoque }} itens</h3>
+      <p>Alerta de reposição (≤ 10 un)</p>
+    </div>
+  </section>
+
+  <section class="secao-graficos">
+    <div class="card card-grafico">
+      <h3>Estoque por Categoria (Visão Geral)</h3>
+      <div class="chart-container">
+        <canvas baseChart
+          [data]="barChartData"
+          [options]="barChartOptions"
+          [plugins]="barChartPlugins"
+          [legend]="barChartLegend"
+          [type]="'bar'">
+        </canvas>
+      </div>
+    </div>
+
+    <div class="card card-grafico">
+      <h3>Receita por Forma de Pagamento</h3>
+      <div class="chart-container">
+        <canvas baseChart
+          [data]="doughnutChartData"
+          [options]="doughnutChartOptions"
+          [type]="'doughnut'">
+        </canvas>
+      </div>
+    </div>
+  </section>
+
+  <section class="card card-tabela">
+    <div class="tabela-header">
+      <h3>Gerenciamento Completo de Produtos e Estoque</h3>
+      <button (click)="irParaNovoProduto()" class="btn-novo-sec">+ Adicionar Produto</button>
+    </div>
+    <div class="tabela-responsive">
+      <table class="tabela-dados">
+        <thead>
+          <tr>
+            <th>Imagem</th>
+            <th>ID</th>
+            <th>Produto</th>
+            <th>Categoria</th>
+            <th>Preço</th>
+            <th>Nível de Estoque</th>
+            <th>Ações (CRUD)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let prod of produtos">
+            <td>
+              <img [src]="prod.imagemUrl" [alt]="prod.nome" class="img-thumb">
+            </td>
+            <td>#{{ prod.id }}</td>
+            <td><strong>{{ prod.nome }}</strong></td>
+            <td><span class="badge-cat">{{ prod.categoria || 'Geral' }}</span></td>
+            <td>R$ {{ prod.preco.toFixed(2) }}</td>
+            <td>
+              <div class="barra-progresso-wrapper">
+                <span class="tag-estoque" [class.alerta]="prod.estoque <= 10">
+                  {{ prod.estoque }} un
+                </span>
+                <div class="barra-progresso">
+                  <div class="fill" 
+                       [style.width.%]="prod.estoque > 100 ? 100 : prod.estoque" 
+                       [class.baixo]="prod.estoque <= 10"></div>
+                </div>
+              </div>
+            </td>
+            <td class="acoes-col">
+              <button (click)="editarProduto(prod.id)" class="btn-editar">Editar</button>
+              <button (click)="excluirProduto(prod.id)" class="btn-perigo">Excluir</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

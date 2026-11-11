@@ -1,0 +1,8 @@
+node_modules/
+.angular/
+dist/
+tmp/
+out-tsc/
+.idea/
+.vscode/
+.DS_Store

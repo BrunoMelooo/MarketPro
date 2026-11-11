@@ -1,0 +1,120 @@
+.container-admin {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+.cabecalho-admin {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 1.2rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  margin-bottom: 2rem;
+}
+.brand h2 { font-size: 1.6rem; color: #0284c7; }
+.brand span { font-size: 0.9rem; color: #64748b; font-weight: 400; }
+.brand .user { font-size: 0.85rem; color: #475569; margin-top: 0.2rem; }
+.acoes-cabecalho { display: flex; gap: 1rem; align-items: center; }
+.btn-logout {
+  background-color: #fee2e2;
+  color: #dc2626;
+  border: none;
+  padding: 0.65rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.card-metrica {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  border-left: 5px solid #0284c7;
+}
+.card-faturamento { border-left-color: #16a34a; }
+.card-pedidos { border-left-color: #0284c7; }
+.card-estoque { border-left-color: #8b5cf6; }
+.card-alerta { border-left-color: #f59e0b; }
+.metrica-header { display: flex; justify-content: space-between; color: #64748b; font-size: 0.9rem; font-weight: 600; }
+.card-metrica h3 { font-size: 1.8rem; color: #0f172a; margin: 0.6rem 0 0.2rem 0; font-weight: 700; }
+.card-metrica p { font-size: 0.8rem; color: #94a3b8; }
+
+.secao-graficos {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.card-grafico {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+.card-grafico h3 { font-size: 1.1rem; color: #1e293b; margin-bottom: 1rem; }
+.chart-container { position: relative; height: 250px; width: 100%; }
+
+.card {
+  background: white;
+  padding: 1.8rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+.tabela-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.tabela-header h3 { font-size: 1.2rem; color: #1e293b; }
+.btn-novo-sec {
+  background-color: #16a34a;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.tabela-responsive { overflow-x: auto; }
+.tabela-dados { width: 100%; border-collapse: collapse; }
+.tabela-dados th { background-color: #f8fafc; color: #475569; font-weight: 600; font-size: 0.85rem; padding: 0.8rem; text-align: left; border-bottom: 2px solid #e2e8f0; }
+.tabela-dados td { padding: 0.9rem 0.8rem; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; color: #334155; vertical-align: middle; }
+.img-thumb { width: 45px; height: 45px; object-fit: cover; border-radius: 6px; border: 1px solid #e2e8f0; }
+.badge-cat { background: #f1f5f9; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.8rem; color: #475569; }
+
+.barra-progresso-wrapper { display: flex; flex-direction: column; gap: 0.3rem; }
+.tag-estoque { font-weight: 600; color: #16a34a; font-size: 0.85rem; }
+.tag-estoque.alerta { color: #dc2626; }
+.barra-progresso { width: 100%; height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden; }
+.barra-progresso .fill { height: 100%; background: #16a34a; transition: width 0.3s; }
+.barra-progresso .fill.baixo { background: #dc2626; }
+
+.acoes-col { display: flex; gap: 0.5rem; }
+.btn-editar {
+  background-color: #e0f2fe;
+  color: #0369a1;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+.btn-perigo {
+  background-color: #fee2e2;
+  color: #dc2626;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.8rem;
+}

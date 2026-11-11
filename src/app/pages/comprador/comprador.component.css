@@ -1,0 +1,51 @@
+.container-comprador {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+.cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 1.2rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  margin-bottom: 2rem;
+}
+.marca h2 { font-size: 1.6rem; color: #0284c7; }
+.marca span { font-size: 0.9rem; color: #64748b; font-weight: 400; }
+.cliente-info { font-size: 0.85rem; color: #475569; margin-top: 0.2rem; }
+.btn-logout { background-color: #fee2e2; color: #dc2626; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; font-weight: 600; }
+.toast-notification { position: fixed; bottom: 20px; right: 20px; background-color: #0284c7; color: white; padding: 1rem 1.5rem; border-radius: 8px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); z-index: 1000; font-weight: 500; }
+.toast-notification.success { background-color: #16a34a; }
+.conteudo-principal { display: grid; grid-template-columns: 2.2fr 1fr; gap: 2rem; }
+.secao-produtos h3, .secao-carrinho h3 { margin-bottom: 1.2rem; font-size: 1.25rem; color: #1e293b; }
+.grid-produtos { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.2rem; }
+.card-produto { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.04); display: flex; flex-direction: column; transition: transform 0.2s; }
+.card-produto:hover { transform: translateY(-4px); }
+.imagem-container { position: relative; height: 160px; background-color: #f8fafc; }
+.imagem-container img { width: 100%; height: 100%; object-fit: cover; }
+.badge-cat { position: absolute; top: 8px; left: 8px; background: rgba(15, 23, 42, 0.75); color: white; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; }
+.detalhes-produto { padding: 1rem; display: flex; flex-direction: column; flex-grow: 1; }
+.detalhes-produto h4 { font-size: 1rem; margin-bottom: 0.4rem; color: #0f172a; }
+.estoque-status { font-size: 0.8rem; color: #64748b; margin-bottom: 1rem; }
+.estoque-status.sem-estoque { color: #ef4444; }
+.footer-card { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+.preco { font-size: 1.1rem; font-weight: 700; color: #16a34a; }
+.btn-adicionar { background-color: #16a34a; color: white; border: none; padding: 0.5rem 0.8rem; border-radius: 6px; font-size: 0.85rem; }
+.btn-adicionar:disabled { background-color: #cbd5e1; cursor: not-allowed; }
+.secao-carrinho { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.04); height: fit-content; }
+.carrinho-vazio { text-align: center; color: #94a3b8; padding: 2rem 0; }
+.itens-carrinho { list-style: none; margin-bottom: 1.5rem; }
+.itens-carrinho li { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid #f1f5f9; }
+.item-info strong { display: block; font-size: 0.9rem; color: #1e293b; }
+.item-info small { color: #64748b; }
+.item-acoes { display: flex; align-items: center; gap: 0.8rem; font-weight: 600; }
+.btn-remover { background: none; border: none; color: #ef4444; font-size: 1rem; }
+.opcao-pagamento { margin-bottom: 1.2rem; }
+.opcao-pagamento label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.3rem; }
+.select-pagamento { width: 100%; padding: 0.6rem; border: 1px solid #cbd5e1; border-radius: 6px; }
+.total-carrinho { display: flex; justify-content: space-between; font-size: 1.2rem; margin: 1.5rem 0; padding-top: 1rem; border-top: 2px solid #f1f5f9; }
+.total-carrinho strong { color: #16a34a; }
+.btn-checkout { width: 100%; padding: 0.9rem; background-color: #0284c7; color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 700; }

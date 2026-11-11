@@ -1,0 +1,26 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+.login-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  width: 100%;
+  max-width: 420px;
+}
+.header-card { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+.header-card h2 { color: #0284c7; font-size: 1.8rem; font-weight: 700; }
+.badge { background-color: #e0f2fe; color: #0369a1; padding: 0.25rem 0.6rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.9rem; margin-bottom: 1.8rem; }
+.grupo-campo { margin-bottom: 1.2rem; }
+.grupo-campo label { display: block; margin-bottom: 0.4rem; font-weight: 600; color: #334155; font-size: 0.85rem; }
+.campo-texto { width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; font-size: 0.95rem; }
+.campo-texto:focus { border-color: #0284c7; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15); }
+.btn-entrar { width: 100%; padding: 0.85rem; background-color: #0284c7; color: white; border: none; border-radius: 6px; font-size: 1rem; font-weight: 600; margin-top: 0.5rem; }
+.btn-voltar { width: 100%; margin-top: 1rem; background: transparent; border: none; color: #64748b; font-size: 0.85rem; cursor: pointer; }
+.alerta-erro { background-color: #fee2e2; color: #dc2626; padding: 0.75rem; border-radius: 6px; font-size: 0.85rem; margin-bottom: 1.2rem; }

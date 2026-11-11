@@ -1,0 +1,26 @@
+<div class="container-selecionar-perfil">
+  <div class="hero">
+    <h1>MarketPro</h1>
+    <p class="subtitulo">Sistema de Gestão de Estoque e Compras de Supermercado</p>
+  </div>
+
+  <div class="cards-wrapper">
+    <div class="card-perfil card-admin" (click)="selecionarModo('admin')">
+      <div class="icon">📊</div>
+      <h3>Painel Administrativo</h3>
+      <p>Acompanhe faturamento, ordens de compra, estoques em tempo real e gráficos de vendas.</p>
+      <button class="btn btn-admin">Acessar Painel Admin</button>
+    </div>
+
+    <div class="card-perfil card-buyer" (click)="selecionarModo('buyer')">
+      <div class="icon">🛒</div>
+      <h3>Área do Comprador</h3>
+      <p>Explore os produtos em estoque, monte o carrinho de compras e simule pagamentos com baixa no banco.</p>
+      <button class="btn btn-buyer">Acessar Loja Virtual</button>
+    </div>
+  </div>
+
+  <div class="rodape-link">
+    <button (click)="irParaSobre()" class="btn-link">Conheça a História da MarketPro (Fundador: Bruno Melo)</button>
+  </div>
+</div>

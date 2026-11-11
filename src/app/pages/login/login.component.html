@@ -1,0 +1,26 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="header-card">
+      <h2>MarketPro</h2>
+      <span class="badge">{{ perfilAlvo === 'admin' ? 'Painel Admin' : 'Portal Comprador' }}</span>
+    </div>
+    <p class="subtitle">Acesse sua conta para continuar</p>
+
+    <div *ngIf="mensagemErro" class="alerta-erro">
+      {{ mensagemErro }}
+    </div>
+
+    <form (ngSubmit)="entrar()">
+      <div class="grupo-campo">
+        <label>E-mail</label>
+        <input type="email" [(ngModel)]="email" name="email" required class="campo-texto" placeholder="seu@email.com">
+      </div>
+      <div class="grupo-campo">
+        <label>Senha</label>
+        <input type="password" [(ngModel)]="senha" name="senha" required class="campo-texto" placeholder="••••••••">
+      </div>
+      <button type="submit" class="btn-entrar">Acessar Sistema</button>
+    </form>
+    <button (click)="voltar()" class="btn-voltar">← Voltar para seleção</button>
+  </div>
+</div>
