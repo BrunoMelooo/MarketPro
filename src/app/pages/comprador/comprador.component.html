@@ -1,81 +1,149 @@
-<div class="container-comprador">
-  <header class="cabecalho">
-    <div class="marca">
-      <h2>MarketPro <span>Loja Virtual</span></h2>
-      <p class="cliente-info">Cliente Conectado: <strong>{{ servicoAutenticacao.valorUsuarioAtual?.nome || 'Comprador' }}</strong></p>
+<div class="page-wrapper">
+  <header class="navbar-loja">
+    <div class="navbar-content">
+      <div class="marca" (click)="selecionarCategoria('Todas')">
+        <h2>MarketPro</h2>
+        <span class="tag-entrega">Entrega Rápida</span>
+      </div>
+
+      <div class="barra-busca">
+        <input
+          type="text"
+          [(ngModel)]="termoBusca"
+          (input)="filtrarProdutos()"
+          placeholder="Buscar produtos no supermercado..."
+          class="input-busca"
+        />
+      </div>
+
+      <div class="acoes-usuario">
+        <a routerLink="/sobre" class="link-nav">Sobre Nós</a>
+
+        <ng-container *ngIf="servicoAutenticacao.valorUsuarioAtual as usuario; else naoLogado">
+          <div class="usuario-logado">
+            <span>Olá, <strong>{{ usuario.nome }}</strong></span>
+            <button *ngIf="usuario.perfil === 'admin'" (click)="acessarAreaCorporativa()" class="btn-painel-ativo">
+              Painel
+            </button>
+            <button (click)="sair()" class="btn-sair-discreto">Sair</button>
+          </div>
+        </ng-container>
+
+        <ng-template #naoLogado>
+          <button (click)="irParaLoginCliente()" class="btn-entrar-cliente">
+            Entrar
+          </button>
+        </ng-template>
+      </div>
     </div>
-    <button (click)="sair()" class="btn-logout">Sair do Sistema</button>
   </header>
 
-  <div *ngIf="mensagemNotificacao" class="toast-notification">
-    ✨ {{ mensagemNotificacao }}
-  </div>
+  <div class="container-comprador">
+    <div *ngIf="mensagemNotificacao" class="toast-notification">
+      {{ mensagemNotificacao }}
+    </div>
 
-  <div *ngIf="pagamentoSucesso" class="toast-notification success">
-    🎉 Pagamento realizado com sucesso! Estoque atualizado e pedido gravado no banco de dados.
-  </div>
+    <div *ngIf="pagamentoSucesso" class="toast-notification success">
+      Pedido confirmado com sucesso! Obrigado por comprar no MarketPro.
+    </div>
 
-  <div class="conteudo-principal">
-    <section class="secao-produtos">
-      <h3>Catálogo de Produtos em Estoque</h3>
-      <div class="grid-produtos">
-        <div *ngFor="let produto of produtos" class="card-produto">
-          <div class="imagem-container">
-            <img [src]="produto.imagemUrl || 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&auto=format&fit=crop'" [alt]="produto.nome">
-            <span class="badge-cat">{{ produto.categoria || 'Geral' }}</span>
-          </div>
-          <div class="detalhes-produto">
-            <h4>{{ produto.nome }}</h4>
-            <p class="estoque-status" [class.sem-estoque]="produto.estoque === 0">
-              Estoque: <strong>{{ produto.estoque }} un</strong>
-            </p>
-            <div class="footer-card">
-              <span class="preco">R$ {{ produto.preco.toFixed(2) }}</span>
-              <button (click)="adicionarAoCarrinho(produto)" [disabled]="produto.estoque === 0" class="btn-adicionar">
-                {{ produto.estoque > 0 ? '+ Adicionar' : 'Esgotado' }}
-              </button>
+    <div class="filtros-categorias">
+      <button
+        *ngFor="let cat of categorias"
+        (click)="selecionarCategoria(cat)"
+        [class.ativa]="categoriaSelecionada === cat"
+        class="chip-categoria">
+        {{ cat }}
+      </button>
+    </div>
+
+    <div class="conteudo-principal">
+      <section class="secao-produtos">
+        <div class="titulo-secao">
+          <h3>{{ categoriaSelecionada === 'Todas' ? 'Ofertas e Produtos Disponíveis' : categoriaSelecionada }}</h3>
+          <span class="contador-produtos">{{ produtosFiltrados.length }} itens</span>
+        </div>
+
+        <div class="grid-produtos">
+          <div *ngFor="let produto of produtosFiltrados" class="card-produto">
+            <div class="imagem-container">
+              <img [src]="produto.imagemUrl || 'https://via.placeholder.com/150'" [alt]="produto.nome">
+              <span class="badge-cat">{{ produto.categoria || 'Geral' }}</span>
+            </div>
+            <div class="detalhes-produto">
+              <h4>{{ produto.nome }}</h4>
+              <p class="estoque-status" [class.sem-estoque]="produto.estoque === 0">
+                {{ produto.estoque > 0 ? produto.estoque + ' disponíveis' : 'Indisponível' }}
+              </p>
+              <div class="footer-card">
+                <span class="preco">R$ {{ produto.preco.toFixed(2) }}</span>
+                <button (click)="adicionarAoCarrinho(produto)" [disabled]="produto.estoque === 0" class="btn-adicionar">
+                  {{ produto.estoque > 0 ? '+ Adicionar' : 'Esgotado' }}
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <aside class="secao-carrinho">
-      <h3>Seu Carrinho de Compras</h3>
-      <div *ngIf="carrinho.length === 0" class="carrinho-vazio">
-        <p>🛒 Seu carrinho está vazio.</p>
-      </div>
-
-      <div *ngIf="carrinho.length > 0">
-        <ul class="itens-carrinho">
-          <li *ngFor="let item of carrinho; let i = index">
-            <div class="item-info">
-              <strong>{{ item.produto.nome }}</strong>
-              <small>{{ item.quantidade }}x R$ {{ item.produto.preco.toFixed(2) }}</small>
-            </div>
-            <div class="item-acoes">
-              <span>R$ {{ (item.produto.preco * item.quantidade).toFixed(2) }}</span>
-              <button (click)="removerDoCarrinho(i)" class="btn-remover">✕</button>
-            </div>
-          </li>
-        </ul>
-
-        <div class="opcao-pagamento">
-          <label>Forma de Pagamento:</label>
-          <select [(ngModel)]="metodoPagamento" class="select-pagamento">
-            <option value="Cartão de Crédito">Cartão de Crédito</option>
-            <option value="Pix">Pix (Instantâneo)</option>
-            <option value="Boleto Bancário">Boleto Bancário</option>
-          </select>
+      <aside class="secao-carrinho">
+        <div class="header-carrinho">
+          <h3>Seu Carrinho</h3>
+          <span class="badge-itens" *ngIf="carrinho.length > 0">{{ obterTotalItensCarrinho() }} un</span>
         </div>
 
-        <div class="total-carrinho">
-          <span>Total Geral:</span>
-          <strong>R$ {{ obterValorTotal().toFixed(2) }}</strong>
+        <div *ngIf="carrinho.length === 0" class="carrinho-vazio">
+          <p>Seu carrinho está vazio.</p>
+          <small>Adicione itens do catálogo para iniciar sua compra.</small>
         </div>
 
-        <button (click)="processarPagamento()" class="btn-checkout">Finalizar & Simular Pagamento</button>
-      </div>
-    </aside>
+        <div *ngIf="carrinho.length > 0">
+          <ul class="itens-carrinho">
+            <li *ngFor="let item of carrinho; let i = index">
+              <div class="item-info">
+                <strong>{{ item.produto.nome }}</strong>
+                <small>{{ item.quantidade }}x R$ {{ item.produto.preco.toFixed(2) }}</small>
+              </div>
+              <div class="item-acoes">
+                <span>R$ {{ (item.produto.preco * item.quantidade).toFixed(2) }}</span>
+                <button (click)="removerDoCarrinho(i)" class="btn-remover" title="Remover item">✕</button>
+              </div>
+            </li>
+          </ul>
+
+          <div class="opcao-pagamento">
+            <label>Forma de Pagamento:</label>
+            <select [(ngModel)]="metodoPagamento" class="select-pagamento">
+              <option value="Cartão de Crédito">Cartão de Crédito</option>
+              <option value="Pix">Pix (Instantâneo)</option>
+              <option value="Boleto Bancário">Boleto Bancário</option>
+            </select>
+          </div>
+
+          <div class="total-carrinho">
+            <span>Total:</span>
+            <strong>R$ {{ obterValorTotal().toFixed(2) }}</strong>
+          </div>
+
+          <button (click)="processarPagamento()" class="btn-checkout">Finalizar Compra</button>
+        </div>
+      </aside>
+    </div>
   </div>
+
+  <footer class="rodape-loja">
+    <div class="rodape-conteudo">
+      <div class="rodape-info">
+        <strong>MarketPro Supermercados</strong>
+        <span>© 2026 MarketPro Comércio Digital Ltda. Todos os direitos reservados.</span>
+      </div>
+      <div class="rodape-links">
+        <a routerLink="/sobre">Institucional</a>
+        <span class="separador">•</span>
+        <button (click)="acessarAreaCorporativa()" class="link-corporativo">
+          Portal do Colaborador
+        </button>
+      </div>
+    </div>
+  </footer>
 </div>

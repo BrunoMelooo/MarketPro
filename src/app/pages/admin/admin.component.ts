@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Produto } from '../../models/produto.model';
 import { Pedido } from '../../models/pedido.model';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-admin',
@@ -15,19 +16,28 @@ import { ChartConfiguration, ChartOptions } from 'chart.js';
 export class AdminComponent implements OnInit {
   produtos: Produto[] = [];
   pedidos: Pedido[] = [];
+  novoProduto: Produto = { nome: '', preco: 0, estoque: 0, categoria: '' };
+  limiteEstoqueMinimo: number = environment.estoqueMinimoAlerta;
 
+  // Controle de edição de estoque por item
+  estoqueEditado: { [id: number]: number } = {};
+  salvandoEstoqueId: number | null = null;
+  mensagemFeedback: string | null = null;
+
+  // Métricas
   faturamentoTotal: number = 0;
   totalVendasCount: number = 0;
   totalItensEstoque: number = 0;
   produtosBaixoEstoque: number = 0;
 
+  // Gráfico de Barras - Estoque por Categoria
   public barChartLegend = true;
   public barChartPlugins = [];
   public barChartData: ChartConfiguration<'bar'>['data'] = {
     labels: [],
     datasets: [
-      { 
-        data: [], 
+      {
+        data: [],
         label: 'Unidades em Estoque por Categoria',
         backgroundColor: '#0284c7',
         borderRadius: 6
@@ -42,11 +52,12 @@ export class AdminComponent implements OnInit {
     }
   };
 
+  // Gráfico de Rosca - Distribuição por Forma de Pagamento
   public doughnutChartLabels: string[] = ['Cartão de Crédito', 'Pix', 'Boleto'];
   public doughnutChartData: ChartConfiguration<'doughnut'>['data'] = {
     labels: this.doughnutChartLabels,
     datasets: [
-      { 
+      {
         data: [0, 0, 0],
         backgroundColor: ['#0284c7', '#16a34a', '#f59e0b']
       }
@@ -71,6 +82,12 @@ export class AdminComponent implements OnInit {
   carregarDados(): void {
     this.servicoProduto.obterProdutos().subscribe(dados => {
       this.produtos = dados;
+      this.estoqueEditado = {};
+      dados.forEach(p => {
+        if (p.id !== undefined) {
+          this.estoqueEditado[p.id] = p.estoque;
+        }
+      });
       this.calcularMetricasEstoque();
       this.atualizarGraficoEstoque();
     });
@@ -82,9 +99,53 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  alterarQuantidadeLocal(produto: Produto, delta: number): void {
+    if (produto.id === undefined) return;
+    const atual = Number(this.estoqueEditado[produto.id] ?? produto.estoque);
+    const novoValor = Math.max(0, atual + delta);
+    this.estoqueEditado[produto.id] = novoValor;
+  }
+
+  houveAlteracaoEstoque(produto: Produto): boolean {
+    if (produto.id === undefined) return false;
+    const valorEditado = Number(this.estoqueEditado[produto.id]);
+    return !isNaN(valorEditado) && valorEditado >= 0 && valorEditado !== produto.estoque;
+  }
+
+  salvarEstoque(produto: Produto): void {
+    if (produto.id === undefined) return;
+    const novaQuantidade = Math.max(0, Math.floor(Number(this.estoqueEditado[produto.id])));
+    if (isNaN(novaQuantidade)) return;
+
+    this.salvandoEstoqueId = produto.id;
+    const produtoAtualizado: Produto = {
+      ...produto,
+      estoque: novaQuantidade
+    };
+
+    this.servicoProduto.atualizarProduto(produto.id, produtoAtualizado).subscribe({
+      next: () => {
+        this.salvandoEstoqueId = null;
+        this.exibirFeedback(`Estoque de "${produto.nome}" atualizado para ${novaQuantidade} un.`);
+        this.carregarDados();
+      },
+      error: () => {
+        this.salvandoEstoqueId = null;
+        this.exibirFeedback(`Erro ao atualizar estoque de "${produto.nome}".`);
+      }
+    });
+  }
+
+  private exibirFeedback(msg: string): void {
+    this.mensagemFeedback = msg;
+    setTimeout(() => {
+      this.mensagemFeedback = null;
+    }, 3500);
+  }
+
   calcularMetricasEstoque(): void {
     this.totalItensEstoque = this.produtos.reduce((soma, item) => soma + item.estoque, 0);
-    this.produtosBaixoEstoque = this.produtos.filter(item => item.estoque <= 10).length;
+    this.produtosBaixoEstoque = this.produtos.filter(item => item.estoque <= this.limiteEstoqueMinimo).length;
   }
 
   calcularMetricasVendas(): void {
@@ -134,27 +195,30 @@ export class AdminComponent implements OnInit {
     };
   }
 
-  irParaNovoProduto(): void {
-    this.router.navigate(['/admin/produtos/novo']);
-  }
+  adicionarProduto(): void {
+    if (!this.novoProduto.nome || this.novoProduto.preco <= 0) return;
 
-  editarProduto(id?: number): void {
-    if (id) {
-      this.router.navigate([`/admin/produtos/editar/${id}`]);
-    }
+    this.servicoProduto.adicionarProduto(this.novoProduto).subscribe(() => {
+      this.exibirFeedback(`Produto "${this.novoProduto.nome}" cadastrado!`);
+      this.carregarDados();
+      this.novoProduto = { nome: '', preco: 0, estoque: 0, categoria: '' };
+    });
   }
 
   excluirProduto(id?: number): void {
     if (!id) return;
-    if (confirm('Tem certeza que deseja excluir este produto do inventário?')) {
-      this.servicoProduto.excluirProduto(id).subscribe(() => {
-        this.carregarDados();
-      });
-    }
+    this.servicoProduto.excluirProduto(id).subscribe(() => {
+      this.exibirFeedback('Produto removido do inventário.');
+      this.carregarDados();
+    });
+  }
+
+  voltarParaLoja(): void {
+    this.router.navigate(['/loja']);
   }
 
   sair(): void {
     this.servicoAutenticacao.sair();
-    this.router.navigate(['/selecionar-perfil']);
+    this.router.navigate(['/loja']);
   }
 }

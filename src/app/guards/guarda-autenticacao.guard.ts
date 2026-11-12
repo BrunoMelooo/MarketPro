@@ -15,7 +15,7 @@ export class GuardaAutenticacao implements CanActivate {
 
     if (autenticado) {
       if (perfilEsperado && perfilUsuario !== perfilEsperado) {
-        this.router.navigate(['/selecionar-perfil']);
+        this.router.navigate(['/loja']);
         return false;
       }
       return true;

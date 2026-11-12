@@ -4,6 +4,7 @@ import { AutenticacaoService } from '../../services/autenticacao.service';
 import { PedidoService } from '../../services/pedido.service';
 import { Router } from '@angular/router';
 import { Produto } from '../../models/produto.model';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-comprador',
@@ -12,10 +13,16 @@ import { Produto } from '../../models/produto.model';
 })
 export class CompradorComponent implements OnInit {
   produtos: Produto[] = [];
+  produtosFiltrados: Produto[] = [];
+  categorias: string[] = ['Todas'];
+  categoriaSelecionada: string = 'Todas';
+  termoBusca: string = '';
+
   carrinho: { produto: Produto; quantidade: number }[] = [];
   mensagemNotificacao: string | null = null;
   pagamentoSucesso: boolean = false;
   metodoPagamento: string = 'Cartão de Crédito';
+  nomeApp: string = environment.appName;
 
   constructor(
     private servicoProduto: ProdutoService,
@@ -31,7 +38,23 @@ export class CompradorComponent implements OnInit {
   carregarProdutos(): void {
     this.servicoProduto.obterProdutos().subscribe(dados => {
       this.produtos = dados;
+      const catsUnicas = Array.from(new Set(dados.map(p => p.categoria || 'Geral')));
+      this.categorias = ['Todas', ...catsUnicas];
+      this.filtrarProdutos();
     });
+  }
+
+  filtrarProdutos(): void {
+    this.produtosFiltrados = this.produtos.filter(prod => {
+      const bateCategoria = this.categoriaSelecionada === 'Todas' || (prod.categoria || 'Geral') === this.categoriaSelecionada;
+      const bateBusca = !this.termoBusca.trim() || prod.nome.toLowerCase().includes(this.termoBusca.toLowerCase());
+      return bateCategoria && bateBusca;
+    });
+  }
+
+  selecionarCategoria(cat: string): void {
+    this.categoriaSelecionada = cat;
+    this.filtrarProdutos();
   }
 
   adicionarAoCarrinho(produto: Produto): void {
@@ -58,6 +81,10 @@ export class CompradorComponent implements OnInit {
     this.carrinho.splice(index, 1);
   }
 
+  obterTotalItensCarrinho(): number {
+    return this.carrinho.reduce((soma, item) => soma + item.quantidade, 0);
+  }
+
   obterValorTotal(): number {
     return this.carrinho.reduce((soma, item) => soma + item.produto.preco * item.quantidade, 0);
   }
@@ -70,7 +97,7 @@ export class CompradorComponent implements OnInit {
 
     const novoPedido = {
       usuarioId: usuario?.id || 2,
-      nomeUsuario: usuario?.nome || 'Comprador Exemplo',
+      nomeUsuario: usuario?.nome || 'Cliente Visitante',
       valorTotal: valorTotal,
       data: new Date().toISOString(),
       status: 'Concluído',
@@ -103,8 +130,19 @@ export class CompradorComponent implements OnInit {
     }, 3000);
   }
 
+  irParaLoginCliente(): void {
+    this.router.navigate(['/login'], { queryParams: { perfil: 'buyer' } });
+  }
+
+  acessarAreaCorporativa(): void {
+    if (this.servicoAutenticacao.estaAutenticado() && this.servicoAutenticacao.obterPerfil() === 'admin') {
+      this.router.navigate(['/gestao-interna']);
+    } else {
+      this.router.navigate(['/login'], { queryParams: { perfil: 'admin' } });
+    }
+  }
+
   sair(): void {
     this.servicoAutenticacao.sair();
-    this.router.navigate(['/selecionar-perfil']);
   }
 }

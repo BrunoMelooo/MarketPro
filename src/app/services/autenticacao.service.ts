@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Usuario } from '../models/usuario.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AutenticacaoService {
-  private urlApi = 'http://localhost:3000/usuarios';
+  private urlApi = `${environment.apiUrl}/usuarios`;
   private usuarioAtualSubject = new BehaviorSubject<Usuario | null>(null);
   public usuarioAtual$ = this.usuarioAtualSubject.asObservable();
 

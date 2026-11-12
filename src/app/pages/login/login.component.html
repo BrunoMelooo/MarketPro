@@ -2,9 +2,13 @@
   <div class="login-card">
     <div class="header-card">
       <h2>MarketPro</h2>
-      <span class="badge">{{ perfilAlvo === 'admin' ? 'Painel Admin' : 'Portal Comprador' }}</span>
+      <span class="badge" [class.badge-admin]="perfilAlvo === 'admin'">
+        {{ perfilAlvo === 'admin' ? 'Acesso Corporativo' : 'Minha Conta' }}
+      </span>
     </div>
-    <p class="subtitle">Acesse sua conta para continuar</p>
+    <p class="subtitle">
+      {{ perfilAlvo === 'admin' ? 'Autenticação restrita para colaboradores autorizados' : 'Entre para acompanhar seus pedidos e agilizar suas compras' }}
+    </p>
 
     <div *ngIf="mensagemErro" class="alerta-erro">
       {{ mensagemErro }}
@@ -19,8 +23,11 @@
         <label>Senha</label>
         <input type="password" [(ngModel)]="senha" name="senha" required class="campo-texto" placeholder="••••••••">
       </div>
-      <button type="submit" class="btn-entrar">Acessar Sistema</button>
+      <button type="submit" class="btn-entrar" [class.btn-admin]="perfilAlvo === 'admin'">
+        {{ perfilAlvo === 'admin' ? 'Entrar no Painel de Gestão' : 'Entrar na Loja' }}
+      </button>
     </form>
-    <button (click)="voltar()" class="btn-voltar">← Voltar para seleção</button>
+
+    <button (click)="voltar()" class="btn-voltar">← Voltar para a loja</button>
   </div>
 </div>

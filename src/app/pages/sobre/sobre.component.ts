@@ -13,6 +13,6 @@ export class SobreComponent {
   constructor(public router: Router) {}
 
   voltar(): void {
-    this.router.navigate(['/selecionar-perfil']);
+    this.router.navigate(['/loja']);
   }
 }
