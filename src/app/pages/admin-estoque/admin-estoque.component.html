@@ -1,0 +1,92 @@
+<div class="container-admin-sub">
+  <header class="cabecalho-sub">
+    <div class="brand">
+      <h2>MarketPro <span>Gerenciamento de Estoque</span></h2>
+      <p class="user">Administrador: <strong>{{ servicoAutenticacao.valorUsuarioAtual?.nome || 'Bruno Melo' }}</strong></p>
+    </div>
+    <div class="header-acoes">
+      <button type="button" (click)="irParaAdicionar()" class="btn-primario">+ Adicionar Produto</button>
+      <button type="button" (click)="voltarPainel()" class="btn-voltar">← Voltar ao Painel</button>
+    </div>
+  </header>
+
+  <div *ngIf="mensagemFeedback" class="toast-admin">
+    {{ mensagemFeedback }}
+  </div>
+
+  <section class="card card-tabela">
+    <div class="header-tabela">
+      <div>
+        <h3>Controle de Inventário ({{ produtosFiltrados.length }} itens)</h3>
+        <span class="dica-edicao">Ajuste a quantidade desejada e clique em <strong>Salvar</strong></span>
+      </div>
+      <input
+        type="text"
+        [(ngModel)]="termoBusca"
+        (input)="filtrarProdutos()"
+        placeholder="Filtrar por nome ou categoria..."
+        class="input-filtro"
+      />
+    </div>
+
+    <div class="tabela-responsive">
+      <table class="tabela-dados">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Produto</th>
+            <th>Categoria</th>
+            <th>Preço</th>
+            <th>Estoque Atual</th>
+            <th>Editar Quantidade</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let prod of produtosFiltrados">
+            <td>#{{ prod.id }}</td>
+            <td><strong>{{ prod.nome }}</strong></td>
+            <td><span class="badge-cat">{{ prod.categoria || 'Geral' }}</span></td>
+            <td>R$ {{ prod.preco.toFixed(2) }}</td>
+            <td>
+              <div class="barra-progresso-wrapper">
+                <span class="tag-estoque" [class.alerta]="prod.estoque <= limiteEstoqueMinimo">
+                  {{ prod.estoque }} un
+                </span>
+                <div class="barra-progresso">
+                  <div class="fill"
+                        [style.width.%]="prod.estoque > 100 ? 100 : prod.estoque"
+                        [class.baixo]="prod.estoque <= limiteEstoqueMinimo"></div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="controle-estoque-inline" *ngIf="prod.id !== undefined">
+                <button type="button" (click)="alterarQuantidadeLocal(prod, -1)" class="btn-qtd" title="Diminuir 1">−</button>
+                <input
+                  type="number"
+                  min="0"
+                  [(ngModel)]="estoqueEditado[prod.id]"
+                  [name]="'estoque_' + prod.id"
+                  (keyup.enter)="salvarEstoque(prod)"
+                  class="input-qtd"
+                />
+                <button type="button" (click)="alterarQuantidadeLocal(prod, 1)" class="btn-qtd" title="Aumentar 1">+</button>
+                <button
+                  type="button"
+                  (click)="salvarEstoque(prod)"
+                  [disabled]="!houveAlteracaoEstoque(prod) || salvandoEstoqueId === prod.id"
+                  class="btn-salvar-qtd">
+                  {{ salvandoEstoqueId === prod.id ? '...' : 'Salvar' }}
+                </button>
+              </div>
+            </td>
+            <td>
+              <button type="button" (click)="excluirProduto(prod.id)" class="btn-perigo">Excluir</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

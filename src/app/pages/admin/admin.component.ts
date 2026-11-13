@@ -16,13 +16,7 @@ import { environment } from '../../../environments/environment';
 export class AdminComponent implements OnInit {
   produtos: Produto[] = [];
   pedidos: Pedido[] = [];
-  novoProduto: Produto = { nome: '', preco: 0, estoque: 0, categoria: '' };
   limiteEstoqueMinimo: number = environment.estoqueMinimoAlerta;
-
-  // Controle de edição de estoque por item
-  estoqueEditado: { [id: number]: number } = {};
-  salvandoEstoqueId: number | null = null;
-  mensagemFeedback: string | null = null;
 
   // Métricas
   faturamentoTotal: number = 0;
@@ -82,12 +76,6 @@ export class AdminComponent implements OnInit {
   carregarDados(): void {
     this.servicoProduto.obterProdutos().subscribe(dados => {
       this.produtos = dados;
-      this.estoqueEditado = {};
-      dados.forEach(p => {
-        if (p.id !== undefined) {
-          this.estoqueEditado[p.id] = p.estoque;
-        }
-      });
       this.calcularMetricasEstoque();
       this.atualizarGraficoEstoque();
     });
@@ -97,50 +85,6 @@ export class AdminComponent implements OnInit {
       this.calcularMetricasVendas();
       this.atualizarGraficoPagamentos();
     });
-  }
-
-  alterarQuantidadeLocal(produto: Produto, delta: number): void {
-    if (produto.id === undefined) return;
-    const atual = Number(this.estoqueEditado[produto.id] ?? produto.estoque);
-    const novoValor = Math.max(0, atual + delta);
-    this.estoqueEditado[produto.id] = novoValor;
-  }
-
-  houveAlteracaoEstoque(produto: Produto): boolean {
-    if (produto.id === undefined) return false;
-    const valorEditado = Number(this.estoqueEditado[produto.id]);
-    return !isNaN(valorEditado) && valorEditado >= 0 && valorEditado !== produto.estoque;
-  }
-
-  salvarEstoque(produto: Produto): void {
-    if (produto.id === undefined) return;
-    const novaQuantidade = Math.max(0, Math.floor(Number(this.estoqueEditado[produto.id])));
-    if (isNaN(novaQuantidade)) return;
-
-    this.salvandoEstoqueId = produto.id;
-    const produtoAtualizado: Produto = {
-      ...produto,
-      estoque: novaQuantidade
-    };
-
-    this.servicoProduto.atualizarProduto(produto.id, produtoAtualizado).subscribe({
-      next: () => {
-        this.salvandoEstoqueId = null;
-        this.exibirFeedback(`Estoque de "${produto.nome}" atualizado para ${novaQuantidade} un.`);
-        this.carregarDados();
-      },
-      error: () => {
-        this.salvandoEstoqueId = null;
-        this.exibirFeedback(`Erro ao atualizar estoque de "${produto.nome}".`);
-      }
-    });
-  }
-
-  private exibirFeedback(msg: string): void {
-    this.mensagemFeedback = msg;
-    setTimeout(() => {
-      this.mensagemFeedback = null;
-    }, 3500);
   }
 
   calcularMetricasEstoque(): void {
@@ -195,22 +139,12 @@ export class AdminComponent implements OnInit {
     };
   }
 
-  adicionarProduto(): void {
-    if (!this.novoProduto.nome || this.novoProduto.preco <= 0) return;
-
-    this.servicoProduto.adicionarProduto(this.novoProduto).subscribe(() => {
-      this.exibirFeedback(`Produto "${this.novoProduto.nome}" cadastrado!`);
-      this.carregarDados();
-      this.novoProduto = { nome: '', preco: 0, estoque: 0, categoria: '' };
-    });
+  irParaAdicionarProduto(): void {
+    this.router.navigate(['/gestao-interna/adicionar']);
   }
 
-  excluirProduto(id?: number): void {
-    if (!id) return;
-    this.servicoProduto.excluirProduto(id).subscribe(() => {
-      this.exibirFeedback('Produto removido do inventário.');
-      this.carregarDados();
-    });
+  irParaGerenciarEstoque(): void {
+    this.router.navigate(['/gestao-interna/estoque']);
   }
 
   voltarParaLoja(): void {

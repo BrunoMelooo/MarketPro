@@ -1,0 +1,138 @@
+.container-admin-sub {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.cabecalho-sub {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 1.2rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.brand h2 { font-size: 1.5rem; color: #0284c7; }
+.brand span { font-size: 0.9rem; color: #64748b; font-weight: 400; }
+.brand .user { font-size: 0.85rem; color: #475569; margin-top: 0.2rem; }
+
+.header-acoes {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn-voltar {
+  background-color: #0f172a;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.1rem;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.btn-secundario {
+  background-color: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+  padding: 0.6rem 1.1rem;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.toast-admin {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #16a34a;
+  color: white;
+  padding: 0.9rem 1.4rem;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+  z-index: 1000;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.card-formulario-central {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+
+.card-formulario-central h3 {
+  font-size: 1.25rem;
+  color: #0f172a;
+  margin-bottom: 0.35rem;
+}
+
+.subtitulo-form {
+  font-size: 0.88rem;
+  color: #64748b;
+  margin-bottom: 1.6rem;
+}
+
+.linha-dupla {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+@media (max-width: 680px) {
+  .linha-dupla {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grupo-formulario { margin-bottom: 1.2rem; }
+.grupo-formulario label { display: block; margin-bottom: 0.4rem; font-weight: 600; color: #334155; font-size: 0.85rem; }
+
+.controle-formulario {
+  width: 100%;
+  padding: 0.72rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  outline: none;
+  font-size: 0.92rem;
+}
+
+.controle-formulario:focus {
+  border-color: #0284c7;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
+}
+
+.acoes-form {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.btn-cancelar {
+  padding: 0.8rem 1.4rem;
+  background-color: #f1f5f9;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.btn-enviar {
+  padding: 0.8rem 1.6rem;
+  background-color: #16a34a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.btn-enviar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

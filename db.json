@@ -18,19 +18,19 @@
   "produtos": [
     {
       "id": 1,
-      "nome": "Arroz Integral 5kg",
+      "nome": "Arroz Integral 1kg",
       "preco": 24.9,
       "estoque": 50,
       "categoria": "Alimentos",
-      "imagemUrl": "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=300"
+      "imagemUrl": "https://cdn.dummyjson.com/products/images/groceries/Rice/1.png"
     },
     {
       "id": 2,
-      "nome": "Feijão Preto 1kg",
+      "nome": "Feijão Enlatado",
       "preco": 8.5,
       "estoque": 72,
       "categoria": "Alimentos",
-      "imagemUrl": "https://images.unsplash.com/photo-1551462147-ff29053bfc14?w=300"
+      "imagemUrl": "https://www.themealdb.com/images/ingredients/Black%20Beans.png"
     },
     {
       "id": 3,
@@ -38,7 +38,7 @@
       "preco": 32,
       "estoque": 10,
       "categoria": "Mercearia",
-      "imagemUrl": "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=300"
+      "imagemUrl": "assets/azeite.jpg"
     },
     {
       "id": 4,
@@ -46,7 +46,7 @@
       "preco": 2.99,
       "estoque": 110,
       "categoria": "Limpeza",
-      "imagemUrl": "https://images.unsplash.com/photo-1585670149967-b4f4da88cc9f?w=300"
+      "imagemUrl": "assets/detergente.jpg"
     },
     {
       "id": 5,
@@ -54,7 +54,7 @@
       "preco": 16.9,
       "estoque": 60,
       "categoria": "Mercearia",
-      "imagemUrl": "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=300"
+      "imagemUrl": "https://cdn.dummyjson.com/products/images/groceries/Nescafe%20Coffee/1.png"
     },
     {
       "id": 6,
@@ -62,7 +62,7 @@
       "preco": 4.8,
       "estoque": 5,
       "categoria": "Laticínios",
-      "imagemUrl": "https://images.unsplash.com/photo-1563636619-e9143da7973b?w=300"
+      "imagemUrl": "https://cdn.dummyjson.com/products/images/groceries/Milk/1.png"
     }
   ],
   "pedidos": [

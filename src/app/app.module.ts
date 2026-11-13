@@ -7,6 +7,8 @@ import { NgChartsModule } from 'ng2-charts';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminComponent } from './pages/admin/admin.component';
+import { AdminAdicionarComponent } from './pages/admin-adicionar/admin-adicionar.component';
+import { AdminEstoqueComponent } from './pages/admin-estoque/admin-estoque.component';
 import { CompradorComponent } from './pages/comprador/comprador.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SobreComponent } from './pages/sobre/sobre.component';
@@ -15,6 +17,8 @@ import { SobreComponent } from './pages/sobre/sobre.component';
   declarations: [
     AppComponent,
     AdminComponent,
+    AdminAdicionarComponent,
+    AdminEstoqueComponent,
     CompradorComponent,
     LoginComponent,
     SobreComponent

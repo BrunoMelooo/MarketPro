@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './pages/admin/admin.component';
+import { AdminAdicionarComponent } from './pages/admin-adicionar/admin-adicionar.component';
+import { AdminEstoqueComponent } from './pages/admin-estoque/admin-estoque.component';
 import { CompradorComponent } from './pages/comprador/comprador.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SobreComponent } from './pages/sobre/sobre.component';
@@ -14,6 +16,18 @@ const routes: Routes = [
   {
     path: 'gestao-interna',
     component: AdminComponent,
+    canActivate: [GuardaAutenticacao],
+    data: { perfil: 'admin' }
+  },
+  {
+    path: 'gestao-interna/adicionar',
+    component: AdminAdicionarComponent,
+    canActivate: [GuardaAutenticacao],
+    data: { perfil: 'admin' }
+  },
+  {
+    path: 'gestao-interna/estoque',
+    component: AdminEstoqueComponent,
     canActivate: [GuardaAutenticacao],
     data: { perfil: 'admin' }
   },
